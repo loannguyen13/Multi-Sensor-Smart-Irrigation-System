@@ -1,0 +1,14 @@
+# Bỏ qua tất cả các thư mục build sinh ra khi biên dịch C/C++
+**/build/
+.ninja_log
+.ninja_deps
+
+# Bỏ qua các file cấu hình riêng của VS Code (nếu bạn muốn người khác tự cấu hình)
+.vscode/ipch/
+.vscode/.browse.VC.db
+.vscode/*.suo
+.vscode/*.user
+
+# Bỏ qua các file tạm, file log
+*.log
+*.tmp
