@@ -9,8 +9,8 @@ void Set_PB5_Input(){
 }
 
 void Set_PB5_Output(){
-    GPIOB->CRH &= ~(0xF << 20);
-    GPIOB->CRH |= (0x3 << 20);
+    GPIOB->CRL &= ~(0xF << 20);
+    GPIOB->CRL |= (0x3 << 20);
 }
 
 void DHT11_Start(){
