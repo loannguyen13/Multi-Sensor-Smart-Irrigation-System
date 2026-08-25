@@ -6,7 +6,7 @@ echo Building STM32F103 AHT20 Baremetal Project
 echo ===============================================
 
 REM Change to project directory
-cd /d C:\Users\2006n\Downloads\Embedded C - The Summer Course - HCMUT\Buoi6_I2C_SPI
+cd /d E:\MLIoT-Group2-Final-Project
 
 REM Clean build directory (using batch commands, not PowerShell)
 if exist build (

@@ -2,7 +2,6 @@
 #include "I2C_Handler.h"
 #include "Tim_Handler.h"
 
-
 void GPIO_Init(){
     RCC->APB2ENR |= RCC_APB2ENR_IOPAEN | RCC_APB2ENR_IOPBEN | RCC_APB2ENR_AFIOEN;
 

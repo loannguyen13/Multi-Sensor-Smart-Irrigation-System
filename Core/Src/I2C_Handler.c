@@ -4,9 +4,9 @@
 
 void I2C_Init()
 {
-    // 1. Cap xung cho GPIOB va I2C1
-    RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;
+    // 1. Cap xung cho I2C1
     RCC->APB1ENR |= RCC_APB1ENR_I2C1EN;
+    RCC->APB2ENR |= RCC_APB2ENR_AFIOEN;
 
     // 2. PB6/PB7 -> Alternate Function Open-Drain 50MHz
     GPIOB->CRL &= ~(0xFFu << 24);

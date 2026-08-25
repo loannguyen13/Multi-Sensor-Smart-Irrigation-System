@@ -9,6 +9,7 @@
 void Int_To_String(int num, char *str); // Ham de hien thi so len LCD
 void func();
 
+
 // main.c
 #include "main.h"
 
@@ -17,6 +18,8 @@ volatile uint8_t mode = 0;
 volatile uint8_t manual = 0;
 volatile uint8_t pump = 0;
 volatile uint8_t tim_flag = 0;
+
+volatile uint32_t msTicks = 0;
 
 // Bien nhiet do va do am khong khi (dinh dung them 1 con LCD 1602 de hien thi)
 uint8_t temperature = 0, humidity = 0, moisture = 0;
@@ -53,6 +56,8 @@ int main()
     delay_ms(60);
     delay_ms(60);
 
+    SysTick_Config(SystemCoreClock / 1000); 
+
     // Cap nhat gia tri hien thi len lcd
     uint8_t last_mode = 0;
     /*Vi du:
@@ -64,43 +69,53 @@ int main()
     */
     while (1)
     {
-        if ((moisture < 40) || (moisture > 80) || (temperature < 15) || (lux < 100)){
+        if ((moisture < 40) || (moisture > 80))
+        {
             GPIOA->BSRR = (1 << 2);
             GPIOA->BRR = (1 << 1);
-        } else {
+        }
+        else
+        {
             GPIOA->BSRR = (1 << 1);
             GPIOA->BRR = (1 << 2);
         }
         // 1. Luôn xử lý và reset tim_flag để tránh treo cờ
         if (tim_flag == 1)
         {
-            tim_flag = 0; // Reset cờ ngay lập tức bất kể đang ở Mode nào!
-
-            // Chỉ đọc cảm biến khi ở Mode Auto (Mode 1)
+            tim_flag = 0;
             if (mode == 1)
             {
                 func();
-                if (moisture < 40){
-                    pump = 1;
-                }
-                else {
-                    pump = 0;
-                }
-                LCD_Setcusor(2, 18);
-                if (pump == 1)
                 {
-                    GPIOA->ODR |= (1 << 9);
-                    LCD_String("On ");
-                }
-                else
-                {
-                    GPIOA->ODR &= ~(1 << 9);
-                    LCD_String("Off");
+                    if (moisture < 40)
+                    {
+                        pump = 1;
+                    }
+                    else
+                    {
+                        pump = 0;
+                    }
+                    LCD_Setcusor(2, 18);
+                    if (pump == 1)
+                    {
+                        GPIOA->ODR |= (1 << 9);
+                        LCD_String("On ");
+                    }
+                    else
+                    {
+                        GPIOA->ODR &= ~(1 << 9);
+                        LCD_String("Off");
+                    }
                 }
             }
         }
         if (mode == 2)
         {
+            if (manual == 1)
+            {
+                manual = 0;
+                func();
+            }
             LCD_Setcusor(2, 18);
             if (pump == 1)
             {
@@ -112,14 +127,13 @@ int main()
                 GPIOA->ODR &= ~(1 << 9);
                 LCD_String("Off");
             }
-            if (manual == 1){
-                manual = 0;
-                func();
-            }
         }
         if (mode != last_mode)
         {
             last_mode = mode;
+            GPIOA->ODR &= ~(1 << 9);
+            LCD_Setcusor(2, 18);
+            LCD_String("Off");
             LCD_Setcusor(1, 7);
             if (mode == 1)
             {
@@ -164,7 +178,7 @@ void Int_To_String(int num, char *str)
     }
 
     str[i] = '\0';
-
+ 
     int start = 0;
     int end = i - 1;
     while (start < end)
@@ -190,7 +204,7 @@ void func()
     Int_To_String(lux, buffer);
     LCD_Setcusor(3, 6);
     LCD_String((const char *)buffer);
-    LCD_String("  ");
+    LCD_String("   ");
 
     DHT11_Data(&temperature, &humidity);
     Int_To_String(temperature, buffer);
