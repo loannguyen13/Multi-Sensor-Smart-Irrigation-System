@@ -69,6 +69,7 @@ int main()
     */
     while (1)
     {
+        //  Kiểm tra cảnh báo độ ẩm
         if ((moisture < 40) || (moisture > 80))
         {
             GPIOA->BSRR = (1 << 2);
@@ -79,61 +80,19 @@ int main()
             GPIOA->BSRR = (1 << 1);
             GPIOA->BRR = (1 << 2);
         }
-        // 1. Luôn xử lý và reset tim_flag để tránh treo cờ
-        if (tim_flag == 1)
-        {
-            tim_flag = 0;
-            if (mode == 1)
-            {
-                func();
-                {
-                    if (moisture < 40)
-                    {
-                        pump = 1;
-                    }
-                    else
-                    {
-                        pump = 0;
-                    }
-                    LCD_Setcusor(2, 18);
-                    if (pump == 1)
-                    {
-                        GPIOA->ODR |= (1 << 9);
-                        LCD_String("On ");
-                    }
-                    else
-                    {
-                        GPIOA->ODR &= ~(1 << 9);
-                        LCD_String("Off");
-                    }
-                }
-            }
-        }
-        if (mode == 2)
-        {
-            if (manual == 1)
-            {
-                manual = 0;
-                func();
-            }
-            LCD_Setcusor(2, 18);
-            if (pump == 1)
-            {
-                GPIOA->ODR |= (1 << 9);
-                LCD_String("On ");
-            }
-            else
-            {
-                GPIOA->ODR &= ~(1 << 9);
-                LCD_String("Off");
-            }
-        }
+
+        // Xử lý Chuyển Mode
         if (mode != last_mode)
         {
             last_mode = mode;
+            
+            // Reset trạng thái bơm 
+            pump = 0; 
             GPIOA->ODR &= ~(1 << 9);
+            
             LCD_Setcusor(2, 18);
             LCD_String("Off");
+            
             LCD_Setcusor(1, 7);
             if (mode == 1)
             {
@@ -142,6 +101,58 @@ int main()
             else
             {
                 LCD_String("Manual");
+            }
+        }
+
+        // Xử lý Chế độ AUTO
+        if (tim_flag == 1)
+        {
+            tim_flag = 0;
+            if (mode == 1)
+            {
+                func();
+                if (moisture < 40)
+                {
+                    pump = 1;
+                }
+                else
+                {
+                    pump = 0;
+                }
+                
+                LCD_Setcusor(2, 18);
+                if (pump == 1)
+                {
+                    GPIOA->ODR |= (1 << 9);
+                    LCD_String("On ");
+                }
+                else
+                {
+                    GPIOA->ODR &= ~(1 << 9);
+                    LCD_String("Off");
+                }
+            }
+        }
+
+        // Xử lý Chế độ MANUAL
+        if (mode == 2)
+        {
+            if (manual == 1)
+            {
+                manual = 0;
+                func(); 
+                
+                LCD_Setcusor(2, 18);
+                if (pump == 1)
+                {
+                    GPIOA->ODR |= (1 << 9);
+                    LCD_String("On ");
+                }
+                else
+                {
+                    GPIOA->ODR &= ~(1 << 9);
+                    LCD_String("Off");
+                }
             }
         }
     }
