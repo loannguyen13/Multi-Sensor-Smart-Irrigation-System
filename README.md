@@ -1,6 +1,6 @@
 # Smart Irrigation System
 
-Hệ thống tưới cây đa cảm biến sử dụng STM32F103C8T6, cho phép giám sát môi trường và điều khiển máy bơm ở chế độ AUTO / MANUAL.
+Hệ thống tưới tiêu thông minh đa cảm biến dựa trên giám sát môi trường và điều khiển bơm tự động
 
 ## Tính năng
 
