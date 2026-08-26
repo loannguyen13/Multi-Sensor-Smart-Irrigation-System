@@ -31,6 +31,14 @@ Hiển thị: LCD 20x4 I2C
 
 ![Control FSM](images/fsm.png)
 
+## Sơ đồ kết nối
+
+![Pinout Schematic](images/pinout.png)
+
+# Demo video
+
+▶️https://youtu.be/Lm8nARhssnc?si=MTAc85anRcH3JVYW
+
 ## Build and Flash
 
 Toolchain: arm-none-eabi-gcc.
