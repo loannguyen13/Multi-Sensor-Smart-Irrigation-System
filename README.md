@@ -8,9 +8,7 @@
 * [1. Overview](#1-overview)
 * [2. System Architecture](#2-system-architecture)
 * [3. Repository Layout](#3-repository-layout)
-* [4. Control Logic & Signal Processing](#4-control-logic--signal-processing)
-    * [4.1 Finite State Machine (FSM)](#41-finite-state-machine-fsm)
-    * [4.2 Moving Average Noise Filter](#42-moving-average-noise-filter)
+* [4. Control Logic](#4-control-logic--signal-processing)
 * [5. Hardware Connection (Pinout)](#5-hardware-connection-pinout)
 * [6. Requirements](#6-requirements)
     * [6.1 Hardware Components](#61-hardware-components)
@@ -70,9 +68,9 @@ Mã nguồn dự án được mô-đun hóa cao độ để các thành viên tr
 
 ---
 
-## 4. Control Logic & Signal Processing
+## 4. Control Logic 
 
-### 4.1 Finite State Machine (FSM)
+### Finite State Machine (FSM)
 Bộ điều khiển chính chạy một máy trạng thái hữu hạn (FSM) tuần hoàn với các bước xử lý phi trạng thái chặn (non-blocking):
 
 * **Chế độ AUTO (Tự động)**:
@@ -82,13 +80,6 @@ Bộ điều khiển chính chạy một máy trạng thái hữu hạn (FSM) tu
     * `WATERING`: Kích hoạt chân GPIO kích mức cao bật Relay mở máy bơm nếu đất khô.
 * **Chế độ MANUAL (Thủ công)**:
     * Cho phép người dùng chuyển trạng thái On/Off của máy bơm ngay lập tức bằng nút nhấn vật lý hoặc gửi tín hiệu qua cổng UART mà không phụ thuộc vào giá trị cảm biến.
-
-### 4.2 Moving Average Noise Filter
-Để triệt tiêu nhiễu điện từ trường sinh ra khi máy bơm hoạt động làm lệch điện áp ADC, nhóm áp dụng bộ lọc Trung Bình Động (Moving Average) với kích thước cửa sổ lọc là 10 mẫu liên tiếp:
-
-$$\text{ADC\_Filtered} = \frac{1}{10} \sum_{i=1}^{10} \text{ADC\_Raw}[i]$$
-
-Giá trị sau lọc được ánh xạ tuyến tính về khoảng độ ẩm thực tế $[1400_{\text{WET}} \dots 3800_{\text{DRY}}]$ tương ứng với $[100\% \dots 0\%]$.
 
 ---
 
