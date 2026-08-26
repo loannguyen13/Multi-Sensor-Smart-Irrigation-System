@@ -70,12 +70,12 @@ int main()
     while (1)
     {
         //  Kiểm tra cảnh báo độ ẩm
-        if ((moisture < 40) || (moisture > 80))
+        if (((moisture < 40) || (moisture > 80)) && ((mode == 1) || (mode == 2)))
         {
             GPIOA->BSRR = (1 << 2);
             GPIOA->BRR = (1 << 1);
         }
-        else
+        if (((moisture > 40) && (moisture < 80)) && ((mode == 1) || (mode == 2)))
         {
             GPIOA->BSRR = (1 << 1);
             GPIOA->BRR = (1 << 2);
@@ -97,6 +97,7 @@ int main()
             if (mode == 1)
             {
                 LCD_String("Auto  ");
+                TIM2->CNT = 0;
             }
             else
             {
@@ -105,11 +106,9 @@ int main()
         }
 
         // Xử lý Chế độ AUTO
-        if (tim_flag == 1)
+        if ((mode == 1) && (tim_flag == 1))
         {
             tim_flag = 0;
-            if (mode == 1)
-            {
                 func();
                 if (moisture < 40)
                 {
@@ -131,7 +130,6 @@ int main()
                     GPIOA->ODR &= ~(1 << 9);
                     LCD_String("Off");
                 }
-            }
         }
 
         // Xử lý Chế độ MANUAL

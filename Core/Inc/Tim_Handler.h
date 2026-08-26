@@ -4,6 +4,8 @@
 #include "stm32f103xb.h"
 #include <stdint.h>
 
+extern volatile uint8_t mode;
+
 extern volatile uint8_t tim_flag;
 
 void TIM4_Init();

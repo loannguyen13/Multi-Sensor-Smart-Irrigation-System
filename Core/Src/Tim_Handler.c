@@ -57,6 +57,7 @@ void TIM2_Init()
 void TIM2_IRQHandler(){
     if ((TIM2->SR & TIM_SR_UIF) != 0){
         TIM2->SR &= ~TIM_SR_UIF;
+        if (mode == 1)
         tim_flag = 1;
     }
 }
