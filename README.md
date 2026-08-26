@@ -1,6 +1,6 @@
 # Smart Irrigation System
 
-Hệ thống tưới cây tự động sử dụng STM32F103C8T6, cho phép giám sát môi trường và điều khiển máy bơm ở chế độ AUTO / MANUAL.
+Hệ thống tưới cây đa cảm biến sử dụng STM32F103C8T6, cho phép giám sát môi trường và điều khiển máy bơm ở chế độ AUTO / MANUAL.
 
 ## Tính năng
 
@@ -11,15 +11,15 @@ Hệ thống tưới cây tự động sử dụng STM32F103C8T6, cho phép giá
 - Chế độ AUTO:
     + Tự động bật/tắt bơm dựa trên ngưỡng độ ẩm đất đặt trước và tự động hiển thị cảm biến lên LCD
 - Chế độ MANUAL:
-    + Điều khiển bơm bằng nút nhấn và Relay, các giá trị cảm biến bằng nút nhấn
+    + Điều khiển bơm bằng nút nhấn và Relay, đọc các giá trị cảm biến thông qua nút nhấn
 
 ## Phần cứng
 
-MCU: STM32F103C8T6
-Cảm biến độ ẩm không khí, nhiệt độ: DHT11
-Cảm biến ánh sáng: BH1750
-Cảm biến độ ẩm đất: Soil Moisture Sensor
-Hiển thị: LCD 20x4 I2C
+- MCU: STM32F103C8T6
+- Cảm biến độ ẩm không khí, nhiệt độ: DHT11
+- Cảm biến ánh sáng: BH1750
+- Cảm biến độ ẩm đất: Soil Moisture Sensor
+- Hiển thị: LCD 20x4 I2C
 - Relay Module
 - Water Pump
 - 3 Push Buttons
