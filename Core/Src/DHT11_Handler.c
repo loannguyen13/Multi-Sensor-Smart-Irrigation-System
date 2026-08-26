@@ -75,7 +75,7 @@ uint8_t DHT11_ReadBit(){
     uint16_t time = TIM4->CNT; // Chốt lại thời gian duy trì mức 1
     TIM4->CR1 &= ~TIM_CR1_CEN; // Tắt timer
     
-    // Theo datasheet DHT11: mức 1 dài ~70us, mức 0 dài ~26-28us
+    // mức 1 dài ~70us, mức 0 dài ~26-28us
     if (time > 40) {
         return 1;
     }

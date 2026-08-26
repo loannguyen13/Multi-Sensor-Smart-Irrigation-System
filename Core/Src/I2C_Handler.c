@@ -182,20 +182,25 @@ uint16_t BH1750_ReadRaw(void)
     uint8_t MSB = 0, LSB = 0;
     uint32_t timeout;
 
-    // 1. Cho bus thuc su ranh truoc khi START
+    // Cho bit busy
     timeout = 100000;
-    while (I2C1->SR2 & I2C_SR2_BUSY) { if (--timeout == 0) return 0xFFFF; }
-
-    // DỌN DẸP TRẠNG THÁI: Bật ACK mặc định và TẮT cờ POS lỗi
+    while (I2C1->SR2 & I2C_SR2_BUSY) { 
+        if (--timeout == 0) 
+            return 0xFFFF; 
+        }
+    // Bật ACK mặc định và TẮT cờ POS lỗi
     I2C1->CR1 |= I2C_CR1_ACK;
     I2C1->CR1 &= ~I2C_CR1_POS;
 
-    // 2. Gui START
+    //  Gui START
     I2C1->CR1 |= I2C_CR1_START;
     timeout = 100000;
-    while (!(I2C1->SR1 & I2C_SR1_SB)) { if (--timeout == 0) return 0xFFFF; }
+    while (!(I2C1->SR1 & I2C_SR1_SB)) { 
+        if (--timeout == 0) 
+            return 0xFFFF; 
+    }
 
-    // 3. Gui dia chi doc (Read)
+    // Gui dia chi doc
     I2C1->DR = (BH1750_ADDR << 1) | 0x01;
     timeout = 100000;
     while (!(I2C1->SR1 & I2C_SR1_ADDR)) {
@@ -207,14 +212,17 @@ uint16_t BH1750_ReadRaw(void)
         if (--timeout == 0) return 0xFFFF;
     }
 
-    // 4. Xóa cờ ADDR để bắt đầu nhận dữ liệu (Tuyệt đối KHÔNG chạm vào ACK hay POS ở đây)
+    // Xóa cờ ADDR
     (void)I2C1->SR1;
     (void)I2C1->SR2;
 
-    // 5. Chờ nhận xong Byte 1 (MSB) báo qua cờ RXNE
+    //Chờ nhận xong Byte 1 (MSB) báo qua cờ RXNE
     timeout = 100000;
     while (!(I2C1->SR1 & I2C_SR1_RXNE)) { 
-        if (--timeout == 0) { I2C1->CR1 |= I2C_CR1_STOP; return 0xFFFF; } 
+        if (--timeout == 0) { 
+            I2C1->CR1 |= I2C_CR1_STOP; 
+            return 0xFFFF; 
+        } 
     }
 
     // --- CRITICAL SECTION ---
@@ -223,27 +231,30 @@ uint16_t BH1750_ReadRaw(void)
     I2C1->CR1 &= ~I2C_CR1_ACK;
     I2C1->CR1 |= I2C_CR1_STOP;
 
-    // 6. Lấy Byte 1 (MSB) ra
+    // Lấy Byte 1 (MSB)
     MSB = I2C1->DR;
 
-    // 7. Chờ nhận xong Byte 2 (LSB) báo qua cờ RXNE
+    // Chờ nhận xong Byte 2 (LSB) báo qua cờ RXNE
     timeout = 100000;
     while (!(I2C1->SR1 & I2C_SR1_RXNE)) { 
-        if (--timeout == 0) { I2C1->CR1 |= I2C_CR1_STOP; return 0xFFFF; } 
+        if (--timeout == 0) { 
+            I2C1->CR1 |= I2C_CR1_STOP; 
+            return 0xFFFF; 
+        } 
     }
 
-    // 8. Lấy Byte 2 (LSB) ra
+    // Lấy Byte 2 (LSB) ra
     LSB = I2C1->DR;
 
-    // 9. Phục hồi lại ACK cho vòng lặp tiếp theo
+    // Phục hồi lại ACK cho vòng lặp tiếp theo
     I2C1->CR1 |= I2C_CR1_ACK;
 
     return ((uint16_t)MSB << 8) | LSB;
 }
 
-// Thuan tuy phep tinh, khong dung toi I2C
+// Doi sang lux
 uint16_t BH1750_RawToLux(uint16_t raw)
 {
-    if (raw == 0xFFFF) return 0; // gia tri loi, tra ve 0 de tranh hien thi rac
+    if (raw == 0xFFFF) return 0; // gia tri loi
     return (uint16_t)((float)raw / 1.2f);
 }
