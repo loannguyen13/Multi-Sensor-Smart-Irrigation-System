@@ -141,18 +141,18 @@ int main()
             {
                 manual = 0;
                 func(); 
+            }
                 
-                LCD_Setcusor(2, 18);
-                if (pump == 1)
-                {
-                    GPIOA->ODR |= (1 << 9);
-                    LCD_String("On ");
-                }
-                else
-                {
-                    GPIOA->ODR &= ~(1 << 9);
-                    LCD_String("Off");
-                }
+            LCD_Setcusor(2, 18);
+            if (pump == 1)
+            {
+                GPIOA->ODR |= (1 << 9);
+                LCD_String("On ");
+            }
+            else
+            {
+                GPIOA->ODR &= ~(1 << 9);
+                LCD_String("Off");
             }
         }
     }
