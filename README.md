@@ -8,7 +8,7 @@
 * [1. Overview](#1-overview)
 * [2. System Architecture](#2-system-architecture)
 * [3. Repository Layout](#3-repository-layout)
-* [4. Control Logic](#4-control-logic--signal-processing)
+* [4. Control Logic](#4-control-logic)
 * [5. Hardware Connection (Pinout)](#5-hardware-connection-pinout)
 * [6. Requirements](#6-requirements)
     * [6.1 Hardware Components](#61-hardware-components)
