@@ -37,7 +37,7 @@
 % ============================================================
 %  PAPER METADATA – fill these in
 % ============================================================
-\title{Paper Title}
+\title{Multi-Sensor Smart Irrigation System.}
 
 \author{%
   \textbf{\textcolor{MLIOTaccent}{Author 1}}%
@@ -121,17 +121,17 @@
   \begin{columns}[T]
     % Left column – Background / Motivation
     \begin{column}{0.52\textwidth}
-      \begin{block}{Background / Motivation}
+      \begin{block}{Problem Statement}
         \begin{itemize}
-          \item Lãng phí nước.
-          \item Phụ thuộc vào sự hiện diện của con người.
-          \item Thiếu dữ liệu để ra quyết định.
-          \item Significance and expected contributions to the field.
+          \item wasting water.
+          \item Dependent on human presence.
+          \item Insufficient data for decision - making.
+          \item Water stress due to insufficient or exessive watering
         \end{itemize}
       \end{block}
     \end{column}
     % Right column – Literature Review Highlights
-    \begin{column}{0.45\textwidth}
+     \begin{column}{0.45\textwidth}
       \begin{block}{Literature Review Highlights}
         \begin{itemize}
           \item Author et al.\ (Year): Key finding 1.\cite{ref1}
@@ -281,35 +281,42 @@
 \end{frame}
 
 % ------------------------------------------------------------
-%  SLIDE 5 – Aim and Objectives
+%  SLIDE 9-Aim and Objectives
 % ------------------------------------------------------------
 \begin{frame}{Objectives}
 \begin{itemize}
-    \item Objectives/Scope of the Study. [Describe specific objectives clearly].    
+    \item Data acquisition and processing.
+    \item Automatic control.
+    \item User interface and monitoring.
+    \item Reliability and safety.
+    \item Project deliverables he Study.
 \end{itemize}
 \end{frame}
 
 % ------------------------------------------------------------
-%  SLIDE 6 – Methodology
+%  SLIDE 10 Methodology
 % ------------------------------------------------------------
 \begin{frame}{Methodology}
   \begin{methodcols}
     \methodcol{\ding{202}~Problem Setup}{%
       \begin{itemize}
-        \item Describe the physical/mathematical problem setup.
-        \item Geometry, boundary conditions, initial conditions.
+        \item Indentify the problem of inefficient irrigation.
+        \item Monitor soil and environmental conditions using multiple sensor.
+        \item Define system inputs, outputs and operating conditions.
       \end{itemize}%
     }
     \methodcol{\ding{203}~Governing Equations}{%
       \begin{itemize}
-        \item List the governing equations used.
-        \item Assumptions made and justification.
+        \item Define sensor thresholds for irrigation decisions.
+        \item Establish the control logic for automatic irrigation.
+        \item Set conditions for turning the water pump ON/OFF.
       \end{itemize}%
     }
     \methodcol{\ding{204}~Numerical / Experimental Method}{%
       \begin{itemize}
-        \item Describe the approach (CFD, FEM, experimental).
-        \item Software/hardware tools, mesh details, validation.
+        \item Cellect and process data from multiple sensor.
+        \item Implement automatic irrigation using STM32 and relay control.
+        \item Test and validate the system under different soil moisture conditions.
       \end{itemize}%
     }
   \end{methodcols}
@@ -318,13 +325,13 @@
   \begin{center}
     \begin{beamercolorbox}[wd=0.65\textwidth, rounded=true, sep=5pt,
           center]{block body}
-      \textit{\small Schematic / Flowchart / Figure can be placed here}
+      \textit{\small Multi-Sensor Data --> Data processing --> Decision making --> Relay control --> Water pump --> Monitoring}
     \end{beamercolorbox}
   \end{center}
 \end{frame}
 
 % ------------------------------------------------------------
-%  SLIDE 7 – Results and Discussion
+%  SLIDE 11 Results and Discussion
 % ------------------------------------------------------------
 \begin{frame}{Results and Discussion}
   \begin{columns}[T]
@@ -404,14 +411,18 @@
 \end{frame}
 
 % ------------------------------------------------------------
-%  SLIDE 8 – Conclusions
+%  SLIDE 14-Conclusions
 % ------------------------------------------------------------
 \begin{frame}{Conclusions}
   \footnotesize % <--- Add this command right before the itemize block!
   \begin{itemize}
     \setlength{\itemsep}{0.5em}
-    \item \textbf{Conclusion 1:} Summarize primary finding or outcome of
-          the study.
+    \item \textbf{Conclusion 1:} The system successfully monitors soil and environmetal conditions using
+          multiple sensor.
+    \item \textbf{Conclusion 2:} The system automatically controls irrigation based
+          on sensor data and predefined thresholds.
+    \item \textbf{Conclusion 3:} Experimental results demonstrate the feasibility
+          of the proposed system.
     % Add more conclusions as needed:
     % \item \textbf{Conclusion 2:} ...
   \end{itemize}
@@ -419,8 +430,8 @@
   \vspace{1em}
   \begin{beamercolorbox}[wd=\textwidth, rounded=true, sep=7pt]{block body alerted}
     \textbf{\textcolor{MLIOTblue}{Future Work:}}
-    \textcolor{MLIOTink}{\footnotesize Briefly describe planned future investigations
-    or extensions of this work.}
+    \textcolor{MLIOTink}{\footnotesize Integrate Wi-Fi connectivity and cloud services, develop
+    a real-time monitoring dashboard, and incorporate AI for intelligent decision-making.}
   \end{beamercolorbox}
 \end{frame}
 
