@@ -18,6 +18,7 @@ volatile uint8_t mode = 0;
 volatile uint8_t manual = 0;
 volatile uint8_t pump = 0;
 volatile uint8_t tim_flag = 0;
+volatile uint8_t mist = 0;
 
 volatile uint32_t msTicks = 0;
 
@@ -46,6 +47,8 @@ int main()
     LCD_String("Pump: ");
     LCD_Setcusor(3, 1);
     LCD_String("Lux: ");
+    LCD_Setcusor(3, 12);
+    LCD_String("Mist: ");
     LCD_Setcusor(4, 1);
     LCD_String("Air: ");
     LCD_Setcusor(4, 12);
@@ -92,6 +95,12 @@ int main()
             
             LCD_Setcusor(2, 18);
             LCD_String("Off");
+
+            mist = 0; 
+            GPIOA->ODR &= ~(1 << 10);
+            
+            LCD_Setcusor(3, 18);
+            LCD_String("Off");
             
             LCD_Setcusor(1, 7);
             if (mode == 1)
@@ -130,6 +139,27 @@ int main()
                     GPIOA->ODR &= ~(1 << 9);
                     LCD_String("Off");
                 }
+
+                if (humidity < 40)
+                {
+                    mist = 1;
+                }
+                else
+                {
+                    mist = 0;
+                }
+                
+                LCD_Setcusor(3, 18);
+                if (mist == 1)
+                {
+                    GPIOA->ODR |= (1 << 10);
+                    LCD_String("On ");
+                }
+                else
+                {
+                    GPIOA->ODR &= ~(1 << 10);
+                    LCD_String("Off");
+                }
         }
 
         // Xử lý Chế độ MANUAL
@@ -150,6 +180,18 @@ int main()
             else
             {
                 GPIOA->ODR &= ~(1 << 9);
+                LCD_String("Off");
+            }
+
+            LCD_Setcusor(3, 18);
+            if (mist == 1)
+            {
+                GPIOA->ODR |= (1 << 10);
+                LCD_String("On ");
+            }
+            else
+            {
+                GPIOA->ODR &= ~(1 << 10);
                 LCD_String("Off");
             }
         }
