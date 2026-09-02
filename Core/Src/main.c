@@ -73,12 +73,12 @@ int main()
     while (1)
     {
         //  Kiểm tra cảnh báo độ ẩm
-        if (((moisture < 40) || (moisture > 80)) && ((mode == 1) || (mode == 2)))
+        if (((moisture < 20) || (moisture > 70)) && ((mode == 1) || (mode == 2)))
         {
             GPIOA->BSRR = (1 << 2);
             GPIOA->BRR = (1 << 1);
         }
-        if (((moisture > 40) && (moisture < 80)) && ((mode == 1) || (mode == 2)))
+        if (((moisture >= 20) && (moisture <= 70)) && ((mode == 1) || (mode == 2)))
         {
             GPIOA->BSRR = (1 << 1);
             GPIOA->BRR = (1 << 2);
