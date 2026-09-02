@@ -119,11 +119,11 @@ int main()
         {
             tim_flag = 0;
                 func();
-                if (moisture < 40)
+                if (moisture < 20)
                 {
                     pump = 1;
                 }
-                else
+                else if (moisture > 50)
                 {
                     pump = 0;
                 }
@@ -144,7 +144,7 @@ int main()
                 {
                     mist = 1;
                 }
-                else
+                else if (humidity > 70)
                 {
                     mist = 0;
                 }
