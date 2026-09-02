@@ -78,7 +78,7 @@ int main()
             GPIOA->BSRR = (1 << 2);
             GPIOA->BRR = (1 << 1);
         }
-        if (((moisture >= 20) && (moisture <= 70)) && ((mode == 1) || (mode == 2)))
+        else if (((moisture >= 20) && (moisture <= 70)) && ((mode == 1) || (mode == 2)))
         {
             GPIOA->BSRR = (1 << 1);
             GPIOA->BRR = (1 << 2);
@@ -123,7 +123,7 @@ int main()
                 {
                     pump = 1;
                 }
-                else if (moisture > 50)
+                else if (moisture >= 50)
                 {
                     pump = 0;
                 }
@@ -144,7 +144,7 @@ int main()
                 {
                     mist = 1;
                 }
-                else if (humidity > 70)
+                else if (humidity >= 70)
                 {
                     mist = 0;
                 }
